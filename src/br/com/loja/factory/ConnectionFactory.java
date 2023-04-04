@@ -37,5 +37,6 @@ public class ConnectionFactory {
             System.out.println("Conexão realizada com sucesso!");
             con.close();
         }
+
     }
 }
