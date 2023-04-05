@@ -2,7 +2,8 @@ package br.com.loja.models;
 
 import java.util.Date;
 
-public class Produtos {
+public class Produtos
+{
     private int id;
     private String produto;
     private String marca;
@@ -12,35 +13,43 @@ public class Produtos {
     // Intellij Alt + Insert -> getters and setters
     // Select all options, it's done.
 
-    public int getId() {
+    public int getId()
+    {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(int id)
+    {
         this.id = id;
     }
 
-    public String getProduto() {
+    public String getProduto()
+    {
         return produto;
     }
 
-    public void setProduto(String produto) {
+    public void setProduto(String produto)
+    {
         this.produto = produto;
     }
 
-    public String getMarca() {
+    public String getMarca()
+    {
         return marca;
     }
 
-    public void setMarca(String marca) {
+    public void setMarca(String marca)
+    {
         this.marca = marca;
     }
 
-    public Date getDataCadastrada() {
+    public Date getDataCadastrada()
+    {
         return dataCadastrada;
     }
 
-    public void setDataCadastrada(Date dataCadastrada) {
+    public void setDataCadastrada(Date dataCadastrada)
+    {
         this.dataCadastrada = dataCadastrada;
     }
 

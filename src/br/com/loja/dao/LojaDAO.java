@@ -8,24 +8,26 @@ import java.sql.*;
 // Java is an object oriented language but mysql isn't.
 // We use DAO to adapt our language to Mysql paradigm. That's why this package is so important.
 
-//import com.mysql.jdbc.PreparedStatement;
 
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
+
 // CREATING A CRUD -> CREATE/READ/UPDATE/DELETE
-public class LojaDAO {
-    public void save(Produtos produto) {
+public class LojaDAO
+{
+    public void save(Produtos produto)
+    {
         String sql = "INSERT INTO produtos(produto,marca,dataCadastro) " +
                 "VALUES (?,?,?)";
         Connection conn = null;
         PreparedStatement pstm = null;
 
-        try {
+        try
+        {
             // To create a new connection to the database
             conn = ConnectionFactory.createConnectionToMySql();
-
             //Creating a PreparedStatment to execute a query
             // pstm = (PreparedStatement) conn.prepareStatement(sql);
             pstm = (PreparedStatement) conn.prepareStatement(sql);
@@ -40,23 +42,30 @@ public class LojaDAO {
             //Achei no stack para usar executeUpdate ou execute
             pstm.execute();
 
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
-        } finally {
-            try {
-                if (pstm != null) {
+        } finally
+        {
+            try
+            {
+                if (pstm != null)
+                {
                     pstm.close();
                 }
-                if (conn != null) {
+                if (conn != null)
+                {
                     conn.close();
                 }
-            } catch (Exception e) {
+            } catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
     }
 
-    public List<Produtos> listar() {
+    public List<Produtos> listar()
+    {
         String sql = "SELECT * FROM produtos";
         List<Produtos> produtos = new ArrayList<>();
         Connection conn = null;
@@ -64,11 +73,13 @@ public class LojaDAO {
         PreparedStatement pstm = null;
         ResultSet rset = null;
 
-        try {
+        try
+        {
             conn = ConnectionFactory.createConnectionToMySql();
             pstm = conn.prepareStatement(sql);
             rset = pstm.executeQuery();
-            while (rset.next()) {
+            while (rset.next())
+            {
                 Produtos produto = new Produtos();
 
                 //Pegando o id
@@ -82,24 +93,66 @@ public class LojaDAO {
 
                 produtos.add(produto);
             }
-        } catch (Exception e) {
+        } catch (Exception e)
+        {
             e.printStackTrace();
-        } finally {
-            try {
-                if (rset != null) {
+        } finally
+        {
+            try
+            {
+                if (rset != null)
+                {
                     rset.close();
                 }
-                if (pstm != null) {
+                if (pstm != null)
+                {
                     pstm.close();
                 }
-                if (rset != null) {
+                if (rset != null)
+                {
                     rset.close();
                 }
-            }catch (Exception e){
+            }catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }
         return produtos;
+    }
+
+    public void delete(int ID)
+    {
+
+        String sql = "DELETE FROM produtos WHERE id = ?";
+        Connection conn = null;
+        PreparedStatement pstm = null;
+
+        try
+        {
+            conn = ConnectionFactory.createConnectionToMySql();
+            pstm = conn.prepareStatement(sql);
+            pstm.setInt(1, ID);
+            pstm.execute();
+        } catch (Exception e)
+        {
+            e.printStackTrace();
+        } finally
+        {
+            try
+            {
+                if (conn!=null)
+                {
+                    conn.close();
+                }
+                if (pstm!=null)
+                {
+                    pstm.close();
+                }
+            }catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

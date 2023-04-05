@@ -3,9 +3,10 @@ package br.com.loja.factory;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class ConnectionFactory {
+public class ConnectionFactory
+{
 
-    // Nae of your mysql user = root
+    // Name of your mysql user = root
     private static final String USERNAME = "root";
 
     // SQL PASSWORD
@@ -17,7 +18,8 @@ public class ConnectionFactory {
 
     // Connecting database
 
-    public static Connection createConnectionToMySql() throws Exception {
+    public static Connection createConnectionToMySql() throws Exception
+    {
         // Loading the Class using JVM
         Class.forName("com.mysql.jdbc.Driver");
 
@@ -26,14 +28,16 @@ public class ConnectionFactory {
         return connection;
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception
+    {
 
         // Testing our connection
 
         Connection con = createConnectionToMySql();
 
         // To test if the connection is returning null
-        if(con!=null){
+        if(con!=null)
+        {
             System.out.println("Conexão realizada com sucesso!");
             con.close();
         }
