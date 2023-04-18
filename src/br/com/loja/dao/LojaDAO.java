@@ -30,7 +30,7 @@ public class LojaDAO
             conn = ConnectionFactory.createConnectionToMySql();
             //Creating a PreparedStatment to execute a query
             // pstm = (PreparedStatement) conn.prepareStatement(sql);
-            pstm = (PreparedStatement) conn.prepareStatement(sql);
+            pstm = conn.prepareStatement(sql);
 
             // Adding values expected by our query
             pstm.setString(1, produto.getProduto());
@@ -64,11 +64,40 @@ public class LojaDAO
         }
     }
 
+    public void updateProducts(Produtos produto){
+
+        String sql = "UPDATE produtos SET produto= ?, marca = ?, dataCadastro =? WHERE id = ?";
+        Connection conn = null;
+        PreparedStatement pstm = null;
+
+        try{
+            conn = ConnectionFactory.createConnectionToMySql();
+            pstm = conn.prepareStatement(sql);
+            pstm.setString(1,produto.getProduto());
+            pstm.setString(2,produto.getMarca());
+            pstm.setDate(3,new Date(produto.getDataCadastrada().getTime()));
+
+            // Index to be updated
+            pstm.setInt(4,produto.getId());
+
+            pstm.execute();
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally{
+            try{
+                if (pstm!=null) pstm.close();
+                if (conn!=null) conn.close();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
     public List<Produtos> listar()
     {
         String sql = "SELECT * FROM produtos";
         List<Produtos> produtos = new ArrayList<>();
-        Connection conn = null;
+        Connection conn;
 
         PreparedStatement pstm = null;
         ResultSet rset = null;

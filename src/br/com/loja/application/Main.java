@@ -14,13 +14,14 @@ public class Main
     public static Produtos produto = new Produtos();
 
     public static Scanner entrada = new Scanner(System.in);
+
     public static void main(String[] args)
     {
 
-        create();
+        //create();
         read();
         //update();
-        delete();
+        //delete();
         // The class responsible for saving a new info is the DAO Class, so, firstly, we must instantiate a new object
 
     }
@@ -49,4 +50,20 @@ public class Main
         System.out.println("Digite o id que deseja deletar");
         produtoDAO.delete(delete_id.nextInt());
     }
+
+    public static void update(){
+
+        Produtos p = new Produtos();
+        System.out.println("Qual o nome do produto: ");
+        p.setProduto(entrada.nextLine());
+        System.out.println("Qual a marca do produto: ");
+        p.setMarca(entrada.nextLine());
+        p.setDataCadastrada(new Date());
+
+        // Use o read para encontrar o numero que quer atualizar
+        p.setId(1);
+        produtoDAO.updateProducts(p);
+        System.out.println("Produto atualizado com sucesso!");
+    }
+
 }
